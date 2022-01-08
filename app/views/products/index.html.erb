@@ -5,5 +5,6 @@
 qty:
 <%= product.quantity %>
 <%= link_to "Edit", edit_product_path(product) %>
+<%= link_to "Delete", product_path(product), method: :delete %>
 
 <% end %>
