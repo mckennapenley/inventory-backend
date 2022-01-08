@@ -1,7 +1,14 @@
 <%= form_for @product do |f| %>
 
+  <%= label_tag(:title, "Item Title:") %>
   <%= f.text_field :title %>
+  <%= label_tag(:quantity, "Quantity:") %>
   <%= f.text_field :quantity %>
+
+  <% TagData::Categories.each do |category| %>
+    <%= check_box_tag("product[tags][]", category) %>
+    <%= category %> 
+  <% end %>
 
   <%= f.submit %>
 

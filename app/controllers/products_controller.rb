@@ -8,7 +8,13 @@ class ProductsController < ApplicationController
   end
 
   def create
+    
     @product = Product.create(params.require(:product).permit(:title, :quantity))
+   
+    params["product"]["tags"].each do |tag|
+      tag = Tag.find_or_create_by(category: tag)
+      @product.tags << tag
+    end
 
     if @product.save
     redirect_to root_url
