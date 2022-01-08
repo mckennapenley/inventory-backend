@@ -1,6 +1,6 @@
 class ProductsController < ApplicationController
   def index
-    @products = Product.all
+    @products = tag ? tag.products : Product.all
   end
 
   def new
@@ -8,18 +8,17 @@ class ProductsController < ApplicationController
   end
 
   def create
-    
     @product = Product.create(params.require(:product).permit(:title, :quantity))
    
-    params["product"]["tags"].each do |tag|
-      tag = Tag.find_or_create_by(category: tag)
+    tag_params.each do |tag_param|
+      tag = Tag.find_or_create_by(category: tag_param)
       @product.tags << tag
     end
 
     if @product.save
-    redirect_to root_url
+      redirect_to root_url
     else
-    render :new
+      render :new
     end
   end
 
@@ -46,5 +45,15 @@ class ProductsController < ApplicationController
     @product.destroy
 
     redirect_to root_url
+  end
+
+  private
+
+  def tag
+    @tag ||= Tag.find_by(category: params[:tag])
+  end
+
+  def tag_params
+    params["product"]["tags"]
   end
 end
