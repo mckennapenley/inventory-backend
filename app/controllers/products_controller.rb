@@ -8,6 +8,13 @@ class ProductsController < ApplicationController
   end
 
   def create
+    @product = Product.create(params.require(:product).permit(:title, :quantity))
+
+    if @product.save
+    redirect_to root_url
+    else
+    render :new
+    end
   end
 
   def show
