@@ -5,8 +5,9 @@
   <%= label_tag(:quantity, "Quantity:") %>
   <%= f.text_field :quantity %>
 
+
   <% TagData::Categories.each do |category| %>
-    <%= check_box_tag("product[tags][]", category) %>
+    <%= check_box_tag("product[tags][]", category, @product.tags.pluck(:category).include?(category)) %>
     <%= category %> 
   <% end %>
 
