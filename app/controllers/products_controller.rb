@@ -26,6 +26,13 @@ class ProductsController < ApplicationController
   end
 
   def update
+    @product = Product.find(params[:id])
+
+    if @product.update(params.require(:product).permit(:title, :quantity))
+      redirect_to root_url
+    else
+      render :edit
+    end
   end
 
   def destroy
