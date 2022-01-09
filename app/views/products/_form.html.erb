@@ -1,16 +1,18 @@
+<br>
+<br>
 <%= form_for @product do |f| %>
-
+ 
   <%= label_tag(:title, "Item Title:") %>
   <%= f.text_field :title %>
   <%= label_tag(:quantity, "Quantity:") %>
   <%= f.text_field :quantity %>
-
-
+  <br>
+   Tags:
   <% TagData::Categories.each do |category| %>
     <%= check_box_tag("product[tags][]", category, @product.tags.pluck(:category).include?(category)) %>
     <%= category %> 
   <% end %>
-
+  <br>
   <%= f.submit %>
 
 <% end %>
