@@ -33,6 +33,8 @@ class ProductsController < ApplicationController
   def update
     @product = Product.find(params[:id])
 
+    update_tags
+
     if @product.update(params.require(:product).permit(:title, :quantity))
       redirect_to root_url
     else
@@ -56,4 +58,19 @@ class ProductsController < ApplicationController
   def tag_params
     params["product"]["tags"]
   end
+
+  def update_tags
+    Product.transaction do
+    
+     @product.tags.destroy_all
+
+     if tag_params
+        tag_params.each do |tag_param|
+          tag = Tag.find_or_create_by(category: tag_param)
+          @product.tags << tag
+        end
+      end
+    end
+  end
+
 end
