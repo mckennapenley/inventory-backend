@@ -1,0 +1,7 @@
+<%= form_tag(products_path, :method => "get") do %>
+  <%= label_tag(:tag, "Filter:") %>
+  <%= select_tag(:tag, options_for_select(['Men','Women','Children','Sale']),:prompt => 'select') %>
+  <%= submit_tag("Filter") %>
+  <%= link_to "Clear filter", root_path %>
+<% end %>
+

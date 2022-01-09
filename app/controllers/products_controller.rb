@@ -61,10 +61,9 @@ class ProductsController < ApplicationController
 
   def update_tags
     Product.transaction do
-    
-     @product.tags.destroy_all
+      @product.tags.destroy_all
 
-     if tag_params
+      if tag_params
         tag_params.each do |tag_param|
           tag = Tag.find_or_create_by(category: tag_param)
           @product.tags << tag
@@ -72,5 +71,4 @@ class ProductsController < ApplicationController
       end
     end
   end
-
 end
