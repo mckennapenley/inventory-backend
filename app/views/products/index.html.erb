@@ -4,7 +4,14 @@
 </h3>
 qty:
 <%= product.quantity %>
+<br>
+tags:
+<% product.tags.each do |tag| %>
+<%= tag.category %>
+<% end %>
+<br>
 <%= link_to "Edit", edit_product_path(product) %>
+<br>
 <%= link_to "Delete", product_path(product), method: :delete %>
 
 <% end %>

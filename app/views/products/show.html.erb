@@ -3,5 +3,10 @@
 </h1>
 <h3>
 qty: <%= @product.quantity %>
+<br>
+tags: 
+<% @product.tags.each do |tag| %>
+<%= tag.category %>
+<% end %>
 </h3>
 
