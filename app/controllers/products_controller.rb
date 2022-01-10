@@ -10,7 +10,9 @@ class ProductsController < ApplicationController
   def create
     @product = Product.new(params.require(:product).permit(:title, :quantity))
 
-    @product.add_tags(tag_params)
+    if tag_params
+      @product.add_tags(tag_params)
+    end
 
     if @product.save
       redirect_to root_url
