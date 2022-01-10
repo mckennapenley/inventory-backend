@@ -66,20 +66,21 @@ RSpec.describe ProductsController, :type => :controller do
   end
 
   describe "POST create" do
+    let!(:params) do
+      {
+        "product"=>{
+          "title"=>"title",
+          "quantity"=>1,
+          "tags"=>["Children","Sale"]
+        }
+      } 
+    end
+
     context 'when params are valid' do
-      let!(:valid_params) do
-        {
-          "product"=>{
-            "title"=>"title",
-            "quantity"=>1,
-            "tags"=>["Children","Sale"]
-          }
-        } 
-      end
     
       it 'creates the product' do
         expect do
-          post :create, params: valid_params
+          post :create, params: params
         end.to change { Product.count }.by(1)
 
         product = Product.last
@@ -90,32 +91,95 @@ RSpec.describe ProductsController, :type => :controller do
       end
 
       it 'redirects to root_url' do
-        post :create, params: valid_params
+        post :create, params: params
         expect(response).to redirect_to(root_url)
       end   
     end
   
     context 'when params are invalid' do
-      let!(:invalid_params) do
-        {
-          "product"=>{
-            "title"=>"",
-            "quantity"=>1,
-            "tags"=>["Children","Sale"]
-          }
-        } 
+      before do
+        expect_any_instance_of(Product).to receive(:save).and_return(false)
       end
 
       it 'does not creates the product' do
         expect do
-          post :create, params: invalid_params
+          post :create, params: params
         end.to change { Product.count }.by(0)
       end 
       
       it 'renders "new" template' do
-        post :create, params: invalid_params
+        post :create, params: params
         expect(response).to render_template :new
       end   
     end
   end 
+
+  describe 'PATCH update' do
+    let!(:product) do
+      FactoryGirl.create(:product)
+    end
+     let!(:params) do
+      {
+        "id"=>product.id,
+        "product"=>{
+          "title"=>"updated_title",
+          "quantity"=>2,
+          "tags"=>["Women"]
+        }
+      } 
+    end
+    context 'when params are valid' do
+      
+
+      it 'updates the product' do
+        expect do
+          post :update, params: params
+        end.to change { Product.count }.by(0)
+
+        product = Product.last
+
+        expect(product.title).to eq("updated_title")
+        expect(product.quantity).to eq(2)
+        expect(product.tags.pluck(:category)).to match_array(["Women"])
+      end
+
+    it 'redirects to root' do
+        post :update, params: params
+        expect(response).to redirect_to(root_url)   
+    end
+    end
+
+    context 'when params are invalid' do
+      before do
+          expect_any_instance_of(Product).to receive(:update).and_return(false)
+        end
+
+      it 'renders "edit" template' do
+        post :update, params: params
+        expect(response).to render_template :edit
+      end 
+    end
+  end
+  
+  describe 'DELETE destroy' do
+    let!(:product) do
+      FactoryGirl.create(:product)
+    end
+    let!(:params) do
+      {
+        "id"=>product.id
+      } 
+    end
+    
+    it "should delete the product" do
+      expect do
+        delete :destroy, params: params
+      end.to change { Product.count }.by(-1)
+    end
+
+    it 'redirects to root' do
+      delete :destroy, params: params
+      expect(response).to redirect_to(root_url)
+    end
+  end
 end
