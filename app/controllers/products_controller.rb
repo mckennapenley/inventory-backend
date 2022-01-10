@@ -9,11 +9,7 @@ class ProductsController < ApplicationController
 
   def create
     @product = Product.create(params.require(:product).permit(:title, :quantity))
-   
-    # tag_params.each do |tag_param|
-    #   tag = Tag.find_or_create_by(category: tag_param)
-    #   @product.tags << tag
-    # end
+
     @product.add_tags(tag_params)
     
 
