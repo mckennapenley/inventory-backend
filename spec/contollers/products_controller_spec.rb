@@ -65,6 +65,26 @@ RSpec.describe ProductsController, :type => :controller do
     end
   end
 
+  describe "GET show" do
+    let!(:product) do
+      FactoryGirl.create(:product)
+    end
+    let!(:params) do
+      {
+        "id"=>product.id
+      } 
+    end
+  it 'returns 200 response' do
+    get :show, params: params
+    expect(response.status).to eq(200)
+  end
+
+  it 'returns the products' do
+    get :show, params: params
+    assigns(:product).should match(product)
+  end
+  end 
+
   describe "POST create" do
     let!(:params) do
       {
