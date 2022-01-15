@@ -74,15 +74,16 @@ RSpec.describe ProductsController, :type => :controller do
         "id"=>product.id
       } 
     end
-  it 'returns 200 response' do
-    get :show, params: params
-    expect(response.status).to eq(200)
-  end
 
-  it 'returns the products' do
-    get :show, params: params
-    assigns(:product).should match(product)
-  end
+    it 'returns 200 response' do
+      get :show, params: params
+      expect(response.status).to eq(200)
+    end
+
+    it 'returns the products' do
+      get :show, params: params
+      assigns(:product).should match(product)
+    end
   end 
 
   describe "POST create" do
@@ -138,6 +139,7 @@ RSpec.describe ProductsController, :type => :controller do
     let!(:product) do
       FactoryGirl.create(:product)
     end
+
      let!(:params) do
       {
         "id"=>product.id,
@@ -148,9 +150,8 @@ RSpec.describe ProductsController, :type => :controller do
         }
       } 
     end
-    context 'when params are valid' do
-      
 
+    context 'when params are valid' do
       it 'updates the product' do
         expect do
           post :update, params: params
@@ -163,10 +164,10 @@ RSpec.describe ProductsController, :type => :controller do
         expect(product.tags.pluck(:category)).to match_array(["Women"])
       end
 
-    it 'redirects to root' do
-        post :update, params: params
-        expect(response).to redirect_to(root_url)   
-    end
+      it 'redirects to root' do
+          post :update, params: params
+          expect(response).to redirect_to(root_url)   
+      end
     end
 
     context 'when params are invalid' do
@@ -185,6 +186,7 @@ RSpec.describe ProductsController, :type => :controller do
     let!(:product) do
       FactoryGirl.create(:product)
     end
+    
     let!(:params) do
       {
         "id"=>product.id
