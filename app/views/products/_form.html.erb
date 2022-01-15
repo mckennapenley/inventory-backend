@@ -1,6 +1,14 @@
 <br>
 <br>
 <%= form_for @product do |f| %>
+  <% if @product.errors.any? %>
+    Please resubmit after correcting the following errors:
+    <ul>
+    <% @product.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+    <% end %>
+    </ul>
+  <% end %>
  
   <%= label_tag(:title, "Item Title:") %>
   <%= f.text_field :title %>
