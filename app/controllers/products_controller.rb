@@ -63,7 +63,7 @@ class ProductsController < ApplicationController
   end
 
   def tag_params
-    params.require(:product).except(:title, :quantity).permit(:tags)
+    params.require(:product).except(:title, :quantity).permit(tags: [])
   end
 
   def tags_array
