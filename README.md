@@ -6,11 +6,21 @@
 
 TASK: Build an inventory tracking web application for a logistics company. We are looking for a web application that meets the requirements listed below, along with one additional feature (filtering based on tags).
 
+See it deployed, [here](https://mysterious-savannah-03677.herokuapp.com/)
+
 #
+
+## How to use the app
+
+On the homepage, you will see a list of all products. Each item has an "edit" link to edit the item details, and a "delete" link to delete the item. Click on the item name to view a specific item. You filter the inventory items by tag. At the top of the homepage, use the dropdown to chose a tag to filter by and click the "filter" button. Click "Clear filter" to remove the filter and see all inventory items again. At the bottom of homepage, there is an "Add New Product" link which renders a form to create a new product.
+
+#
+
+## Built with:
 
 ### Ruby version
 
-2.6.3
+3.0.0
 
 ### Rails version
 
@@ -25,7 +35,7 @@ TASK: Build an inventory tracking web application for a logistics company. We ar
 Note: If you don't have ruby/rails installed, check out this article for [instructions](https://medium.com/@herowebdev1/install-rails-on-your-mac-linux-via-homebrew-a36e57867bae)
 
 1.) Clone the repo <br> <br>
-2.) Make sure your ruby enironment is at least 2.6.3
+2.) Make sure your ruby enironment is at least 3.0.0
 
 ```
 ruby --version
@@ -70,9 +80,3 @@ In the console, navigate to the project folder run
 ```
 rspec
 ```
-
-## How to use the app
-
-On the homepage, you will see a list of all products. Each item has an "edit" link to edit the item details, and a "delete" link to delete the item. Click on the item name to view a specific item. You filter the inventory items by tag. At the top of the homepage, use the dropdown to chose a tag to filter by and click the "filter" button. Click "Clear filter" to remove the filter and see all inventory items again. At the bottom of homepage, there is an "Add New Product" link which renders a form to create a new product.
-
-#
