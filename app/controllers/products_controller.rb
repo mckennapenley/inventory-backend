@@ -8,10 +8,10 @@ class ProductsController < ApplicationController
   end
 
   def create
-    @product = Product.new(params.require(:product).permit(:title, :quantity))
+    @product = Product.new(product_params)
 
     if tag_params
-      @product.add_tags(tag_params)
+      @product.add_tags(tags_array)
     end
 
     if @product.save
@@ -34,7 +34,7 @@ class ProductsController < ApplicationController
 
     update_tags
 
-    if @product.update(params.require(:product).permit(:title, :quantity))
+    if @product.update(product_params)
       redirect_to root_url
     else
       render :edit
@@ -58,7 +58,15 @@ class ProductsController < ApplicationController
     @tag ||= Tag.find_by(category: params[:tag])
   end
 
+  def product_params
+    params.require(:product).except(:tags).permit(:title, :quantity)
+  end
+
   def tag_params
+    params.require(:product).except(:title, :quantity).permit(:tags)
+  end
+
+  def tags_array
     params["product"]["tags"]
   end
 
@@ -67,7 +75,7 @@ class ProductsController < ApplicationController
       @product.tags.destroy_all
 
       if tag_params
-        @product.add_tags(tag_params)
+        @product.add_tags(tags_array)
       end
     end
   end
