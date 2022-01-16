@@ -10,7 +10,7 @@ class ProductsController < ApplicationController
   def create
     @product = Product.new(product_params)
 
-    if tag_params
+    if tag_params.present?
       @product.add_tags(tags_array)
     end
 
@@ -74,7 +74,7 @@ class ProductsController < ApplicationController
     Product.transaction do
       @product.tags.destroy_all
 
-      if tag_params
+      if tag_params.present?
         @product.add_tags(tags_array)
       end
     end
