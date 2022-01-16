@@ -43,23 +43,23 @@ bundle install
 in rails folder:
 
 ```
-bundle exec rake db:create && bundle exec rake db:migrate
+bundle exec rails db:create && bundle exec rails db:migrate
 ```
 
-5.) Start the development server <br>
+5.) Seed the database with some starter data
+
+```
+rails db:seed
+```
+
+6.) Start the development server <br>
 in rails folder:
 
 ```
 rails s
 ```
 
-6.) naviagte to localhost:3000
-
-#
-
-## How to use the app
-
-On the homepage, you will see a list of all products. Each item has an "edit" link to edit the item details, and a "delete" link to delete the item. Click on the item name to view a specific item. You filter the inventory items by tag. At the top of the homepage, use the dropdown to chose a tag to filter by and click the "filter" button. Click "Clear filter" to remove the filter and see all inventory items again. At the bottom of homepage, there is an "Add New Product" link which renders a form to create a new product.
+7.) naviagte to localhost:3000
 
 #
 
@@ -70,3 +70,9 @@ In the console, navigate to the project folder run
 ```
 rspec
 ```
+
+## How to use the app
+
+On the homepage, you will see a list of all products. Each item has an "edit" link to edit the item details, and a "delete" link to delete the item. Click on the item name to view a specific item. You filter the inventory items by tag. At the top of the homepage, use the dropdown to chose a tag to filter by and click the "filter" button. Click "Clear filter" to remove the filter and see all inventory items again. At the bottom of homepage, there is an "Add New Product" link which renders a form to create a new product.
+
+#
