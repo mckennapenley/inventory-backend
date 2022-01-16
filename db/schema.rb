@@ -12,6 +12,9 @@
 
 ActiveRecord::Schema.define(version: 2022_01_08_044917) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "products", force: :cascade do |t|
     t.string "title"
     t.integer "quantity"
@@ -20,8 +23,8 @@ ActiveRecord::Schema.define(version: 2022_01_08_044917) do
   end
 
   create_table "products_tags", id: false, force: :cascade do |t|
-    t.integer "product_id", null: false
-    t.integer "tag_id", null: false
+    t.bigint "product_id", null: false
+    t.bigint "tag_id", null: false
   end
 
   create_table "tags", force: :cascade do |t|
